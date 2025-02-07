@@ -1,4 +1,4 @@
-// DOM element selectors
+
 const configContainer = document.querySelector(".config-container");
 const quizContainer = document.querySelector(".quiz-container");
 const answerOptions = quizContainer.querySelector(".answer-options");
@@ -6,7 +6,7 @@ const nextQuestionBtn = quizContainer.querySelector(".next-question-btn");
 const questionStatus = quizContainer.querySelector(".question-status");
 const timerDisplay = quizContainer.querySelector(".timer-duration");
 const resultContainer = document.querySelector(".result-container");
-// Quiz state variables
+
 const QUIZ_TIME_LIMIT = 15;
 let currentTime = QUIZ_TIME_LIMIT;
 let timer = null;
@@ -16,7 +16,8 @@ let currentQuestion = null;
 const questionsIndexHistory = [];
 let correctAnswersCount = 0;
 let disableSelection = false;
-// Display the quiz result and hide the quiz container
+
+
 const showQuizResult = () => {
   clearInterval(timer);
   document.querySelector(".quiz-popup").classList.remove("active");
@@ -24,12 +25,14 @@ const showQuizResult = () => {
   const resultText = `You answered <b>${correctAnswersCount}</b> out of <b>${numberOfQuestions}</b> questions correctly. Great effort!`;
   resultContainer.querySelector(".result-message").innerHTML = resultText;
 };
+
 // Clear and reset the timer
 const resetTimer = () => {
   clearInterval(timer);
   currentTime = QUIZ_TIME_LIMIT;
   timerDisplay.textContent = `${currentTime}s`;
 };
+
 // Initialize and start the timer for the current question
 const startTimer = () => {
   timer = setInterval(() => {
@@ -46,6 +49,8 @@ const startTimer = () => {
     }
   }, 1000);
 };
+
+
 // Fetch a random question from based on the selected category
 const getRandomQuestion = () => {
   const categoryQuestions = questions.find((cat) => cat.category.toLowerCase() === quizCategory.toLowerCase())?.questions || [];
@@ -59,6 +64,7 @@ const getRandomQuestion = () => {
   questionsIndexHistory.push(categoryQuestions.indexOf(randomQuestion));
   return randomQuestion;
 };
+
 // Highlight the correct answer option and add icon
 const highlightCorrectAnswer = () => {
   const correctOption = answerOptions.querySelectorAll(".answer-option")[currentQuestion.correctAnswer];
@@ -66,6 +72,7 @@ const highlightCorrectAnswer = () => {
   const iconHTML = `<span class="material-symbols-rounded"> check_circle </span>`;
   correctOption.insertAdjacentHTML("beforeend", iconHTML);
 };
+
 // Handle the user's answer selection
 const handleAnswer = (option, answerIndex) => {
   if (disableSelection) return;
@@ -81,6 +88,7 @@ const handleAnswer = (option, answerIndex) => {
   answerOptions.querySelectorAll(".answer-option").forEach((option) => (option.style.pointerEvents = "none"));
   nextQuestionBtn.style.visibility = "visible";
 };
+
 // Render the current question and its options in the quiz
 const renderQuestion = () => {
   currentQuestion = getRandomQuestion();
